@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './App.css';
 
 import Routes from './routes';
 
-export default () => {
+export default withRouter(props => {
   return (
     <div className="App">
       <nav>
@@ -16,8 +16,14 @@ export default () => {
             <li>
               <button
                 href="collapsible.html"
-                className="BackButton btn-flat"
-                onClick={() => window.history.back()}
+                className={
+                  props.location.pathname === '/'
+                    ? 'hide'
+                    : 'BackButton btn-flat'
+                }
+                onClick={() => {
+                  props.history.goBack();
+                }}
               >
                 <i className="material-icons">arrow_back</i>
               </button>
@@ -28,4 +34,4 @@ export default () => {
       <Routes />
     </div>
   );
-};
+});
