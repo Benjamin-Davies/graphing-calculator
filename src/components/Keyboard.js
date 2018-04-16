@@ -6,7 +6,7 @@ export default () => {
     <div className="Keyboard grey lighten-5">
       <div className="container">
         <section className="OperatorsDark">
-          <div className="CursorArrows">
+          <div className="CursorArrows hide-on-small-only">
             <button className="btn grey">REPLAY</button>
           </div>
           <OperatorButton title="SHIFT" color="yellow darken-2" />
@@ -24,7 +24,7 @@ export default () => {
           <OperatorButton title="cos" />
           <OperatorButton title="tan" />
           <OperatorButton title="a b/c" />
-          <OperatorButton title="F&harr;D" />
+          <OperatorButton title="F/D" />
           <OperatorButton title="(" />
           <OperatorButton title=")" />
           <OperatorButton title="," />
@@ -59,7 +59,7 @@ export default () => {
       </div>
     </div>
   );
-};
+});
 
 const OperatorButton = props => {
   return (
