@@ -259,27 +259,22 @@ export class Keyboard extends Component {
               <NumericButton
                 title={keys[32].title}
                 onClick={keys[32].onClick || resetModifiers}
-                color="grey"
               />
               <NumericButton
                 title={keys[33].title}
                 onClick={keys[33].onClick || resetModifiers}
-                color="grey"
               />
               <NumericButton
                 title={keys[34].title}
                 onClick={keys[34].onClick || resetModifiers}
-                color="grey"
               />
               <NumericButton
                 title={keys[35].title}
                 onClick={keys[35].onClick || resetModifiers}
-                color="grey"
               />
               <NumericButton
                 title={keys[36].title}
                 onClick={keys[36].onClick || resetModifiers}
-                color="grey"
               />
               <NumericButton
                 title={keys[37].title}
