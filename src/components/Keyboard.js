@@ -8,22 +8,8 @@ import {
 } from '../reducers/keyboard';
 import './Keyboard.css';
 
-export const Command = {
-  OPTN: 'OPTN',
-  PRGM: 'PRGM',
-  VARS: 'VARS',
-  SETUP: 'SETUP',
-  QUIT: 'QUIT',
-  EXIT: 'EXIT'
-};
-export const Symbol = {
-  SQRT: 'SQRT',
-  RADIUS: 'RADIUS',
-  SQUARE: 'SQUARE',
-  XROOT: 'XROOT',
-  THETA: 'THETA',
-  POWER: 'POWER'
-};
+export const Command = {};
+export const Symbol = {};
 
 export default connect(state => ({
   modifier: state.keyboard.modifier,
@@ -35,16 +21,144 @@ export default connect(state => ({
       props.modifier === Modifier.Alpha ||
       props.modifier === Modifier.AlphaLock;
 
-    const command = c => {
+    const resetModifiers = () => {
+      // props.dispatch({ type: RESET_MODIFIERS });
+    };
+    const command = c => () => {
       if (props.onCommand) {
         props.onCommand(c);
       }
+      resetModifiers();
     };
-    const symbol = s => {
+    const symbol = s => () => {
       if (props.onSymbol) {
         props.onSymbol(s);
       }
+      resetModifiers();
     };
+
+    const noneKeys = [
+      { title: 'OPTN' },
+      { title: 'VARS' },
+      { title: 'MENU' },
+      { title: 'x\u00B2' },
+      { title: '^' },
+      { title: 'EXIT' },
+      { title: 'X,\u03B8,T' },
+      { title: 'log' },
+      { title: 'ln' },
+      { title: 'sin' },
+      { title: 'cos' },
+      { title: 'tan' },
+      { title: 'a b/c' },
+      { title: 'F/D' },
+      { title: '(' },
+      { title: ')' },
+      { title: ',' },
+      { title: '\u2192' },
+      { title: '7' },
+      { title: '8' },
+      { title: '9' },
+      { title: '4' },
+      { title: '5' },
+      { title: '6' },
+      { title: '1' },
+      { title: '2' },
+      { title: '3' },
+      { title: '0' },
+      { title: '\u2022' },
+      { title: 'EXP' },
+      { title: 'DEL' },
+      { title: 'AC' },
+      { title: '*' },
+      { title: '/' },
+      { title: '+' },
+      { title: '-' },
+      { title: '(-)' },
+      { title: 'EXE' }
+    ];
+    const shiftKeys = [
+      {},
+      { title: 'PRGM' },
+      { title: 'SET UP' },
+      { title: '\u221A' },
+      { title: '\u207F\u221A' },
+      { title: 'QUIT' },
+      { title: '\u2220' },
+      { title: '10\u207F' },
+      { title: 'e\u207F' },
+      { title: 'sin\u207B\u00B9' },
+      { title: 'cos\u207B\u00B9' },
+      { title: 'tan\u207B\u00B9' },
+      {},
+      { title: 'a b/c / a/b' },
+      { title: '\u221B' },
+      { title: 'x\u207B\u00B9' },
+      {},
+      {},
+      { title: 'CAPTURE' },
+      { title: 'CLIP' },
+      { title: 'PASTE' },
+      { title: 'CATALOG' },
+      {},
+      {},
+      { title: 'LIST' },
+      { title: 'MAT' },
+      {},
+      { title: 'i' },
+      { title: '=' },
+      { title: '\u03C0' },
+      { title: 'INS' },
+      {},
+      { title: '{' },
+      { title: '}' },
+      { title: '[' },
+      { title: ']' },
+      { title: 'ANS' },
+      { title: '\u23CE' }
+    ];
+    const alphaKeys = [
+      {},
+      {},
+      {},
+      { title: 'r' },
+      { title: '\u03B8' },
+      {},
+      { title: 'A' },
+      { title: 'B' },
+      { title: 'C' },
+      { title: 'D' },
+      { title: 'E' },
+      { title: 'F' },
+      { title: 'G' },
+      { title: 'H' },
+      { title: 'I' },
+      { title: 'J' },
+      { title: 'K' },
+      { title: 'L' },
+      { title: 'M' },
+      { title: 'N' },
+      { title: 'O' },
+      { title: 'P' },
+      { title: 'Q' },
+      { title: 'R' },
+      { title: 'U' },
+      { title: 'V' },
+      { title: 'W' },
+      { title: 'Z' },
+      { title: 'SPACE' },
+      { title: '"' },
+      {},
+      {},
+      { title: 'S' },
+      { title: 'T' },
+      { title: 'X' },
+      { title: 'Y' },
+      {},
+      {}
+    ];
+
+    const keys = shift ? shiftKeys : alpha ? alphaKeys : noneKeys;
 
     return (
       <div className="Keyboard grey lighten-5">
@@ -75,106 +189,100 @@ export default connect(state => ({
             </div>
             <OperatorButton
               title="SHIFT"
-              color={shift ? 'light-blue' : 'yellow darken-2'}
               onClick={() => {
                 props.dispatch({
                   type: TOGGLE_MODIFIER,
                   modifier: Modifier.Shift
                 });
               }}
+              color={shift ? 'light-blue' : 'yellow darken-2'}
             />
             <OperatorButton
-              title="OPTN"
-              onClick={() => {
-                command(Command.OPTN);
-              }}
+              title={keys[0].title}
+              onClick={keys[0].onClick || resetModifiers}
             />
             <OperatorButton
-              title={shift ? 'PRGM' : 'VARS'}
-              onClick={() => {
-                command(shift ? 'PRGM' : 'VARS');
-              }}
+              title={keys[1].title}
+              onClick={keys[1].onClick || resetModifiers}
             />
             <OperatorButton
-              title={shift ? 'SET UP' : 'MENU'}
+              title={keys[2].title}
+              onClick={keys[2].onClick || resetModifiers}
               color="grey"
-              onClick={() => {
-                if (shift) {
-                  command(Command.SETUP);
-                } else {
-                  props.history.push({ pathname: '/' });
-                }
-              }}
             />
             <OperatorButton
               title={shift ? 'A-LOCK' : 'ALPHA'}
-              color={alpha ? 'light-blue' : 'red lighten-1'}
               onClick={() => {
                 props.dispatch({
                   type: TOGGLE_MODIFIER,
                   modifier: Modifier.Alpha
                 });
               }}
+              color={alpha ? 'light-blue' : 'red lighten-1'}
             />
-            <OperatorButton
-              title={shift ? '\u221A' : alpha ? 'r' : 'x\u00B2'}
-              onClick={() => {
-                symbol(
-                  shift ? Symbol.SQRT : alpha ? Symbol.RADIUS : Symbol.SQARE
-                );
-              }}
-            />
-            <OperatorButton
-              title={shift ? 'x\u221A' : alpha ? '\u03B8' : '^'}
-              onClick={() => {
-                symbol(
-                  shift ? Symbol.SQUARE : alpha ? Symbol.THETA : Symbol.POWER
-                );
-              }}
-            />
-            <OperatorButton
-              title={shift ? 'QUIT' : 'EXIT'}
-              onClick={() => {
-                command(shift ? Command.QUIT : Command.EXIT);
-              }}
-            />
-            <OperatorButton title="X,&theta;,T" />
-            <OperatorButton title="log" />
-            <OperatorButton title="ln" />
-            <OperatorButton title="sin" />
-            <OperatorButton title="cos" />
-            <OperatorButton title="tan" />
-            <OperatorButton title="a b/c" />
-            <OperatorButton title="F/D" />
-            <OperatorButton title="(" />
-            <OperatorButton title=")" />
-            <OperatorButton title="," />
-            <OperatorButton title="&rarr;" />
+            {keys
+              .slice(3, 18)
+              .map(({ title, onClick }, i) => (
+                <OperatorButton
+                  key={i}
+                  title={title}
+                  onClick={onClick || resetModifiers}
+                />
+              ))}
           </section>
           <div className="Light">
             <section className="Numeric">
-              <NumericButton title="7" />
-              <NumericButton title="8" />
-              <NumericButton title="9" />
-              <NumericButton title="4" />
-              <NumericButton title="5" />
-              <NumericButton title="6" />
-              <NumericButton title="1" />
-              <NumericButton title="2" />
-              <NumericButton title="3" />
-              <NumericButton title="0" />
-              <NumericButton title="&#x2022;" />
-              <NumericButton title="EXP" />
+              {keys
+                .slice(18, 30)
+                .map(({ title, onClick }, i) => (
+                  <NumericButton
+                    title={title}
+                    key={i}
+                    onClick={onClick || resetModifiers}
+                  />
+                ))}
             </section>
             <section className="OperatorsLight">
-              <NumericButton title="DEL" color="grey" />
-              <NumericButton title="AC" color="grey" />
-              <NumericButton title="&times;" />
-              <NumericButton title="&divide;" />
-              <NumericButton title="+" />
-              <NumericButton title="-" />
-              <NumericButton title="(-)" />
-              <NumericButton title="EXE" color="light-blue" />
+              <NumericButton
+                title={keys[30].title}
+                onClick={keys[30].onClick || resetModifiers}
+                color="grey"
+              />
+              <NumericButton
+                title={keys[31].title}
+                onClick={keys[31].onClick || resetModifiers}
+                color="grey"
+              />
+              <NumericButton
+                title={keys[32].title}
+                onClick={keys[32].onClick || resetModifiers}
+                color="grey"
+              />
+              <NumericButton
+                title={keys[33].title}
+                onClick={keys[33].onClick || resetModifiers}
+                color="grey"
+              />
+              <NumericButton
+                title={keys[34].title}
+                onClick={keys[34].onClick || resetModifiers}
+                color="grey"
+              />
+              <NumericButton
+                title={keys[35].title}
+                onClick={keys[35].onClick || resetModifiers}
+                color="grey"
+              />
+              <NumericButton
+                title={keys[36].title}
+                onClick={keys[36].onClick || resetModifiers}
+                color="grey"
+              />
+              <NumericButton
+                title={keys[37].title}
+                onClick={keys[37].onClick || resetModifiers}
+                color="light-blue"
+              />
             </section>
           </div>
         </div>
