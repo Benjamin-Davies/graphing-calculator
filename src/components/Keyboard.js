@@ -1,11 +1,35 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { TOGGLE_MINIMISE } from '../reducers/keyboard';
 import './Keyboard.css';
 
-export default () => {
+export default connect(state => ({
+  minimiseOperatorsMobile: state.keyboard.minimiseOperatorsMobile
+}))(props => {
   return (
     <div className="Keyboard grey lighten-5">
       <div className="container">
-        <section className="OperatorsDark">
+        <section className="ToggleMinimise hide-on-med-and-up">
+          <button
+            className="btn-flat"
+            onClick={() => {
+              props.dispatch({ type: TOGGLE_MINIMISE });
+            }}
+          >
+            <i className="material-icons">
+              {props.minimiseOperatorsMobile
+                ? 'arrow_drop_up'
+                : 'arrow_drop_down'}
+            </i>
+          </button>
+        </section>
+        <section
+          className={
+            props.minimiseOperatorsMobile
+              ? 'OperatorsDark hide-on-small-only'
+              : 'OperatorsDark'
+          }
+        >
           <div className="CursorArrows hide-on-small-only">
             <button className="btn grey">REPLAY</button>
           </div>

@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.Keyboard .ToggleMinimise {
+  height: 1.5em;
+}
+
 .Keyboard .OperatorsDark {
   display: grid;
   grid-template-columns: repeat(6, 1fr);

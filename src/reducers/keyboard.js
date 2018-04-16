@@ -1,4 +1,5 @@
 export const TOGGLE_MODIFIER = 'TOGGLE_MODIFIER';
+export const TOGGLE_MINIMISE = 'TOGGLE_MINIMISE';
 
 export const Modifier = {
   None: 'None',
@@ -7,7 +8,10 @@ export const Modifier = {
   AlphaLock: 'AlphaLock'
 };
 
-const initialState = { modifier: Modifier.None };
+const initialState = {
+  modifier: Modifier.None,
+  minimiseOperatorsMobile: true
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -26,6 +30,13 @@ export default (state = initialState, action) => {
       } else {
         return { ...state, modifier: action.modifier };
       }
+
+    case TOGGLE_MINIMISE:
+      return {
+        ...state,
+        minimiseOperatorsMobile: !state.minimiseOperatorsMobile
+      };
+
     default:
       return state;
   }
