@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import {
   TOGGLE_MINIMISE,
+  RESET_MODIFIERS,
   TOGGLE_MODIFIER,
   Modifier
 } from '../reducers/keyboard';
@@ -11,28 +13,29 @@ import './Keyboard.css';
 export const Command = {};
 export const Symbol = {};
 
-export default connect(state => ({
-  modifier: state.keyboard.modifier,
-  minimiseOperatorsMobile: state.keyboard.minimiseOperatorsMobile
-}))(
-  withRouter(props => {
-    const shift = props.modifier === Modifier.Shift;
+export class Keyboard extends Component {
+  componentWillMount() {
+    this.props.dispatch({ type: RESET_MODIFIERS });
+  }
+
+  render() {
+    const shift = this.props.modifier === Modifier.Shift;
     const alpha =
-      props.modifier === Modifier.Alpha ||
-      props.modifier === Modifier.AlphaLock;
+      this.props.modifier === Modifier.Alpha ||
+      this.props.modifier === Modifier.AlphaLock;
 
     const resetModifiers = () => {
-      // props.dispatch({ type: RESET_MODIFIERS });
+      this.props.dispatch({ type: RESET_MODIFIERS });
     };
     const command = c => () => {
-      if (props.onCommand) {
-        props.onCommand(c);
+      if (this.props.onCommand) {
+        this.props.onCommand(c);
       }
       resetModifiers();
     };
     const symbol = s => () => {
-      if (props.onSymbol) {
-        props.onSymbol(s);
+      if (this.props.onSymbol) {
+        this.props.onSymbol(s);
       }
       resetModifiers();
     };
@@ -167,11 +170,11 @@ export default connect(state => ({
             <button
               className="btn-flat"
               onClick={() => {
-                props.dispatch({ type: TOGGLE_MINIMISE });
+                this.props.dispatch({ type: TOGGLE_MINIMISE });
               }}
             >
               <i className="material-icons">
-                {props.minimiseOperatorsMobile
+                {this.props.minimiseOperatorsMobile
                   ? 'arrow_drop_up'
                   : 'arrow_drop_down'}
               </i>
@@ -179,7 +182,7 @@ export default connect(state => ({
           </section>
           <section
             className={
-              props.minimiseOperatorsMobile
+              this.props.minimiseOperatorsMobile
                 ? 'OperatorsDark hide-on-small-only'
                 : 'OperatorsDark'
             }
@@ -190,7 +193,7 @@ export default connect(state => ({
             <OperatorButton
               title="SHIFT"
               onClick={() => {
-                props.dispatch({
+                this.props.dispatch({
                   type: TOGGLE_MODIFIER,
                   modifier: Modifier.Shift
                 });
@@ -213,7 +216,7 @@ export default connect(state => ({
             <OperatorButton
               title={shift ? 'A-LOCK' : 'ALPHA'}
               onClick={() => {
-                props.dispatch({
+                this.props.dispatch({
                   type: TOGGLE_MODIFIER,
                   modifier: Modifier.Alpha
                 });
@@ -288,8 +291,16 @@ export default connect(state => ({
         </div>
       </div>
     );
-  })
-);
+  }
+}
+
+export default compose(
+  connect(state => ({
+    modifier: state.keyboard.modifier,
+    minimiseOperatorsMobile: state.keyboard.minimiseOperatorsMobile
+  })),
+  withRouter
+)(Keyboard);
 
 const OperatorButton = props => {
   return (

@@ -1,4 +1,5 @@
 export const TOGGLE_MODIFIER = 'TOGGLE_MODIFIER';
+export const RESET_MODIFIERS = 'RESET_MODIFIERS';
 export const TOGGLE_MINIMISE = 'TOGGLE_MINIMISE';
 
 export const Modifier = {
@@ -29,6 +30,13 @@ export default (state = initialState, action) => {
         return { ...state, modifier: Modifier.AlphaLock };
       } else {
         return { ...state, modifier: action.modifier };
+      }
+
+    case RESET_MODIFIERS:
+      if (state.modifier === Modifier.AlphaLock) {
+        return state;
+      } else {
+        return { ...state, modifier: Modifier.None };
       }
 
     case TOGGLE_MINIMISE:
