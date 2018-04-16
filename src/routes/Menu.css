@@ -10,3 +10,9 @@
 .Menu .MenuItem .card {
   padding: 1rem 0;
 }
+
+@media (max-width: 600px) {
+  .Menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
