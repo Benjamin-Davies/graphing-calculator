@@ -1,0 +1,8 @@
+.KeyboardRoute {
+  display: flex;
+  flex-direction: column;
+}
+
+.KeyboardRoute .ExpandedSection {
+  flex-grow: 1;
+}

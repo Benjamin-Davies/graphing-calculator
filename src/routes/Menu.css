@@ -1,0 +1,12 @@
+.Menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.Menu .MenuItem {
+  padding: 0 0.5rem;
+}
+
+.Menu .MenuItem .card {
+  padding: 1rem 0;
+}

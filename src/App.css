@@ -1,0 +1,16 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.App .BackButton {
+  height: 100%;
+  color: white;
+}
+
+.App main {
+  flex-grow: 1;
+}
