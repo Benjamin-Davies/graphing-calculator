@@ -62,7 +62,12 @@ export class Keyboard extends Component {
     const noneKeys = [
       { title: 'OPTN', onClick: command(Command.OPTN) },
       { title: 'VARS', onClick: command(Command.VARS) },
-      { title: 'MENU' },
+      {
+        title: 'MENU',
+        onClick: () => {
+          this.props.history.push({ pathname: '/' });
+        }
+      },
       { title: 'x\u00B2' },
       { title: '^' },
       { title: 'EXIT', onClick: command(Command.EXIT) },
