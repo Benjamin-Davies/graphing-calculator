@@ -144,7 +144,7 @@ export class Keyboard extends Component {
       { title: '\u00D7', onClick: symbol(Symbol.MULT) },
       { title: '\u00F7', onClick: symbol(Symbol.DIV) },
       { title: '+', onClick: symbol(Symbol.ADD) },
-      { title: '-', onClick: symbol(Symbol.SUB) },
+      { title: '\u2212', onClick: symbol(Symbol.SUB) },
       { title: '(-)', onClick: symbol(Symbol.NEG) },
       { title: 'EXE', onClick: command(Command.EXE) }
     ];
