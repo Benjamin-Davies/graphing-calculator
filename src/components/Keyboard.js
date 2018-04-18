@@ -26,8 +26,6 @@ export const Command = {
   CLIP: 'CLIP',
   PASTE: 'PASTE',
   CATALOG: 'CATALOG',
-  LIST: 'LIST',
-  MAT: 'MAT',
   INS: 'INS'
 };
 export const Symbol = {
@@ -61,6 +59,8 @@ export const Symbol = {
   ATAN: 'ATAN',
   CUBE_RT: 'CUBE_RT',
   RECIPROCAL: 'RECIPROCAL',
+  LIST: 'LIST',
+  MAT: 'MAT',
   I_UNIT: 'I_UNIT',
   EQ: 'EQ',
   PI: 'PI',
@@ -173,8 +173,8 @@ export class Keyboard extends Component {
       { title: 'CATALOG', onClick: command(Command.CATALOG) },
       {},
       {},
-      { title: 'LIST', onClick: command(Command.LIST) },
-      { title: 'MAT', onClick: command(Command.MAT) },
+      { title: 'List', onClick: command(Symbol.LIST) },
+      { title: 'Mat', onClick: command(Symbol.MAT) },
       {},
       { title: 'i', onClick: symbol(Symbol.I_UNIT) },
       { title: '=', onClick: symbol(Symbol.EQ) },
@@ -185,7 +185,7 @@ export class Keyboard extends Component {
       { title: '}', onClick: symbol(Symbol.R_C_BRACK) },
       { title: '[', onClick: symbol(Symbol.L_S_BRACK) },
       { title: ']', onClick: symbol(Symbol.R_S_BRACK) },
-      { title: 'ANS', onClick: symbol(Symbol.ANS) },
+      { title: 'Ans', onClick: symbol(Symbol.ANS) },
       { title: '\u23CE', onClick: symbol(Symbol.RETURN) }
     ];
     const alphaKeys = [
