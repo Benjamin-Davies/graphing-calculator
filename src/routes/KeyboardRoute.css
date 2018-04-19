@@ -6,3 +6,8 @@
 .KeyboardRoute .ExpandedSection {
   flex-grow: 1;
 }
+
+.KeyboardRoute .Display {
+  word-wrap: break-word;
+  font-weight: 400;
+}

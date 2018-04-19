@@ -1,19 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './KeyboardRoute.css';
+import { ADD_SYMBOL } from '../reducers/runMat';
 
 import Keyboard from '../components/Keyboard';
+import Symbol from '../components/Symbol';
 
-export default () => {
+export default connect(state => ({
+  activeLine: state.runMat.activeLine,
+  state
+}))(props => {
   return (
     <main className="KeyboardRoute">
-      <section className="ExpandedSection container flow-text">
+      <section className="ExpandedSection Display container flow-text">
         <p className="left-align">
-          100-5<sup>2</sup>
+          {props.activeLine.map((s, i) => {
+            return <Symbol symbol={s} key={i} />;
+          })}
         </p>
-        <p className="right-align">75</p>
-        <p className="left-align">Ans&divide;3</p>
       </section>
-      <Keyboard />
+      <Keyboard
+        onCommand={console.log}
+        onSymbol={symbol => {
+          props.dispatch({ type: ADD_SYMBOL, symbol });
+        }}
+      />
     </main>
   );
-};
+});
