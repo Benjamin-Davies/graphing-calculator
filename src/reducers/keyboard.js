@@ -11,7 +11,7 @@ export const Modifier = {
 
 const initialState = {
   modifier: Modifier.None,
-  minimiseOperatorsMobile: true
+  minimise: true
 };
 
 export default (state = initialState, action) => {
@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
     case TOGGLE_MINIMISE:
       return {
         ...state,
-        minimiseOperatorsMobile: !state.minimiseOperatorsMobile
+        minimise: !state.minimise
       };
 
     default:

@@ -234,7 +234,7 @@ export class Keyboard extends Component {
     return (
       <div className="Keyboard grey lighten-5">
         <div className="container">
-          <section className="ToggleMinimise hide-on-med-and-up">
+          <section className="ToggleMinimise">
             <button
               className="btn-flat"
               onClick={() => {
@@ -242,17 +242,13 @@ export class Keyboard extends Component {
               }}
             >
               <i className="material-icons">
-                {this.props.minimiseOperatorsMobile
-                  ? 'arrow_drop_up'
-                  : 'arrow_drop_down'}
+                {this.props.minimise ? 'arrow_drop_up' : 'arrow_drop_down'}
               </i>
             </button>
           </section>
           <section
             className={
-              this.props.minimiseOperatorsMobile
-                ? 'OperatorsDark hide-on-small-only'
-                : 'OperatorsDark'
+              this.props.minimise ? 'OperatorsDark hide' : 'OperatorsDark'
             }
           >
             <div className="CursorArrows hide-on-small-only">
@@ -301,7 +297,11 @@ export class Keyboard extends Component {
                 />
               ))}
           </section>
-          <div className="Light">
+          <div
+            className={
+              this.props.minimise ? 'Light hide-on-med-and-up' : 'Light'
+            }
+          >
             <section className="Numeric">
               {keys
                 .slice(18, 30)
@@ -360,7 +360,7 @@ export class Keyboard extends Component {
 export default compose(
   connect(state => ({
     modifier: state.keyboard.modifier,
-    minimiseOperatorsMobile: state.keyboard.minimiseOperatorsMobile
+    minimise: state.keyboard.minimise
   })),
   withRouter
 )(Keyboard);
